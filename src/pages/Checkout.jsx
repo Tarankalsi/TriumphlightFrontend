@@ -20,6 +20,7 @@ import { SyncLoader } from 'react-spinners';
 import DeliverAddressLoader from '../components/Loaders/DeliverAddressLaoder';
 
 const apiUrl = import.meta.env.VITE_URL;
+const pickup_location_name = import.meta.env.VITE_PICKUP_LOCATION_NAME;
 
 export default function Checkout() {
     const navigate = useNavigate();
@@ -31,7 +32,7 @@ export default function Checkout() {
     const [bill, setBill] = useState({});
     const [loading, setLoading] = useState(true);
     const [functionLoading, setFunctionLoading] = useState(false);
-
+    const [ShowBill, setShowBill] = useState(false)
     useEffect(() => {
         const fetchCart = async () => {
             try {
@@ -57,10 +58,12 @@ export default function Checkout() {
                 setLoading(true);  // Start loading
                 const response = await axios.post(`${apiUrl}/user/cart/bill/${cart.cart_id}`, {
                     "address_id": selectedAddress,
+                    "pickup_location_name": pickup_location_name
                 }, {
                     headers: { 'cart-token': token }
                 });
                 setBill(response.data.bill);
+                setShowBill(true);
             } catch (error) {
                 console.error("Error fetching bill: ", error);
             } finally {
@@ -77,6 +80,7 @@ export default function Checkout() {
             const response = await axios.post(`${apiUrl}/order/create`, {
                 "payment_method": paymentMethod,
                 "address_id": selectedAddress,
+                "pickup_location_name": pickup_location_name
             }, {
                 headers: {
                     'Authorization': `Bearer ${Cookies.get('authToken')}`,
@@ -131,7 +135,7 @@ export default function Checkout() {
                                         <OrderSummaryCard key={cartItem.cart_item_id} cartItem={cartItem} />
                                     ))
                                 )}
-                                {loading ? <BillLoader /> : (cart && <Bill bill={bill} />)}
+                                { ShowBill &&  (cart && <Bill bill={bill} />)}
                             </div>
 
                             <button onClick={placeOrder} className="w-full font-semibold text-white bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700">

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 const apiUrl = import.meta.env.VITE_URL;
 
@@ -7,7 +9,7 @@ export default function CartRow({ cartItem, onQuantityChange }) {
     const [product, setProduct] = useState(null);
     const [quantity, setQuantity] = useState(cartItem.quantity);
     const [subTotal, setSubTotal] = useState(0);
-    
+
     useEffect(() => {
         const fetchProduct = async () => {
             try {
@@ -27,6 +29,20 @@ export default function CartRow({ cartItem, onQuantityChange }) {
             setSubTotal(quantity * product.price);
         }
     }, [quantity, product]);
+
+    const deleteCartItemHandle = async () => {
+        try {
+            await axios.delete(`${apiUrl}/user/remove/cart/item/${cartItem.cart_item_id}`, {
+                headers: {
+                    'cart-token': localStorage.getItem('cartToken')
+                }
+            });
+            // Notify parent about the deletion
+            onQuantityChange();
+        } catch (error) {
+            console.error("Error deleting cart item: ", error);
+        }
+    }
 
     const updateQuantity = async (newQuantity) => {
         try {
@@ -69,7 +85,9 @@ export default function CartRow({ cartItem, onQuantityChange }) {
                         <p className="text-sm text-gray-600">Color: {cartItem.color}</p>
                     </div>
                 </div>
-                <div className='flex justify-center'>
+
+                <div className='flex justify-center gap-4'>
+
                     <div className="flex flex-row sm:flex-col space-x-8 sm:space-x-2 justify-center items-center">
                         <p className="text-lg font-semibold">Rs. {subTotal}</p>
                         <div className="flex justify-center items-center mt-2">
@@ -84,6 +102,13 @@ export default function CartRow({ cartItem, onQuantityChange }) {
                             >+</button>
                         </div>
                     </div>
+                    <div className=''>
+                        <button className='size-4 mb-24 text-gray-400 hover:text-gray-800'
+                        onClick={deleteCartItemHandle}>
+                            <FontAwesomeIcon icon={faTrashCan} />
+                        </button>
+                    </div>
+
                 </div>
             </div>
         </div>

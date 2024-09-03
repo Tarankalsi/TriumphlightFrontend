@@ -32,7 +32,6 @@ export default function DeliverAddress() {
                 });
                 console.log(user.data.data.address);
                 setAddresses(user.data.data.address);
-                setSelectedAddress(user.data.data.address[0]?.address_id || "");
                 setUserId(user.data.data.user_id);
             } catch (error) {
                 console.error("Error fetching addresses:", error);
