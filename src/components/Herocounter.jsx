@@ -13,7 +13,7 @@ function Herocounter() {
 
                 <div className='mt-[150px] lg:mt-[50px] sm:mt-[0px] px-[10px] py-[15px] sm:px-[25px] sm:py-[5px] md:px-[35px] lg:px-[65px] xl:px-[100px] 2xl:justify-center 2xl:gap-[100px] '>
 
-                    <div className='flex  justify-center py-[40px]'><p className=' text-[15px] sm:text-[17px] lg:text-[20px] xl:text-[22px] '>India's no.1 Lights Brand</p></div>
+                    <div className='flex  justify-center py-[40px]'><p className=' text-[16px] sm:text-[17px] lg:text-[20px] xl:text-[22px] '>India's no.1 Lights Brand</p></div>
 
                     <div className='  px-[10px] py-[5px] sm:px-[25px] sm:flex sm:gap-[-50px] sm:py-[5px] md:px-[35px] lg:px-[65px] xl:px-[100px] 2xl:justify-center 2xl:gap-[100px]   justify-around'>
                         

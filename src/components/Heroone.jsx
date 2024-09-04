@@ -1,6 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Megaphone, AlignJustify, Search, Heart, ShoppingBag, ChevronRight } from "lucide-react"
+<<<<<<< HEAD
+import { Link,} from "react-router-dom";
+=======
 import { Link, BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+>>>>>>> origin/main
 import { motion } from "framer-motion"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {  faUser } from '@fortawesome/free-solid-svg-icons';
@@ -79,10 +83,19 @@ function Heroone({ }) {
 
 
       <div>
+<<<<<<< HEAD
+        <div className='navback    sticky '>
+          <div className=' 2xl:justify-center 2xl:flex'>
+          <div className=' min-h-24 2xl:w-[1200px]  px-[10px] py-[5px] sm:px-[25px] sm:py-[5px] md:px-[35px] lg:px-[65px] xl:px-[100px] 2xl:justify-center 2xl:gap-[100px]    flex items-center justify-between'>
+=======
         <div className='navback sticky'>
           <div className=' min-h-24  px-[10px] py-[5px] sm:px-[25px] sm:py-[5px] md:px-[35px] lg:px-[65px] xl:px-[100px] 2xl:justify-center 2xl:gap-[100px] flex items-center justify-between'>
+>>>>>>> origin/main
             <div>
-              <img className='w-[150px] sm:w-[180px] lg:w-[220px]' src={'https://triumphlights.s3.ap-south-1.amazonaws.com/websiteimages/logo.png'} alt="" />
+            <Link to="/">
+            <img className='w-[150px] sm:w-[180px] lg:w-[220px]' src={'https://triumphlights.s3.ap-south-1.amazonaws.com/websiteimages/logo.png'} alt="" />
+            </Link>
+             
             </div>
           
             <div className='menu flex-col'>
@@ -161,6 +174,9 @@ function Heroone({ }) {
 
 
           </div>
+          
+          </div>
+
         </div>
 
         {

@@ -51,7 +51,7 @@ import { Link, BrowserRouter, Routes, Route } from "react-router-dom";
     <div>
         <div  className='  px-[10px] py-[5px] 2xl:flex 2xl:flex-col 2xl:items-center  sm:px-[25px] sm:py-[5px] md:px-[35px] lg:px-[65px] xl:px-[100px] 2xl:px-[200px] '>
             <div className='flex justify-center py-[10px]'>
-                <p className='text-[20px]  tracking-wider sm:text-[24px] lg:text-[26px] xl:text-[28px] font-regular'>Outdoor Lights</p>
+                <p className='text-[22px]  tracking-wider sm:text-[24px] lg:text-[26px] xl:text-[28px] font-regular'>Outdoor Lights</p>
             </div>
              <div className='card-backs 2xl:w-[1200px]  flex 2xl:justify-center pl-[5px] py-[20px] gap-[15px]'>
                    {data.map((d) => (

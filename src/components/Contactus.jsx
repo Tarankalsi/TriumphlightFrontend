@@ -15,7 +15,7 @@ const Contactus = () => {
             </div>
         
 
-        <div  className='flex justify-center  px-[10px] py-[5px] sm:px-[25px] sm:py-[5px] md:px-[35px] lg:px-[65px] xl:px-[100px] 2xl:justify-center 2xl:gap-[100px] '>
+        {/* <div  className='flex justify-center  px-[10px] py-[5px] sm:px-[25px] sm:py-[5px] md:px-[35px] lg:px-[65px] xl:px-[100px] 2xl:justify-center 2xl:gap-[100px] '>
             <div className='touchcontainer mt-[20px] flex flex-col sm:flex-row w-[300px] h-[550px] sm:h-[400px] sm:w-[400px] rounded-xl md:w-[500px] lg:w-[700px] xl:w-[800px] contact-bg'>
                    
                    <div className= ' contact-bg flex flex-col justify-around px-[10px] py-[10px] w-[100%] h-[450px] rounded-xl sm:h-[400px]'>
@@ -83,12 +83,118 @@ const Contactus = () => {
                    </div>
             </div>
            
+        </div> */}
+
+       
+
+        
+
+        <div  className='2xl:flex 2xl:justify-center'>
+        <div className='p-4 py-[20px] px-[10px] sm:px-[25px] sm:py-[40px] md:px-[35px] lg:px-[65px] xl:px-[100px] 2xl:w-[1200px] gap-6 flex flex-col'>
+          <div className='gap-2 flex flex-col   '>
+             <div className='flex flex-col gap-5'>
+                    <div> <p className=' text-center text-[22px]  sm:text-[22px] lg:text-[25px] font-semibold'>Contact Us</p></div>
+                    
+             </div>
+
+             <div className='gap-4 flex flex-col'>
+                 <div><p className='text-[13px] sm:text-[15px] md:text-[16px] lg:text-[17px] font-normal'>At <span className='font-bold'>TriumphLights</span>, we're dedicated to providing exceptional customer service. If you have any questions, require assistance with your order, or need support with our products, please don’t hesitate to contact us through any of the following methods:</p></div>
+              
+             </div>
+           </div>
+
+
+
+
+
+           <div className='gap-2 flex flex-col   '>
+             <div className='flex flex-col gap-5'>
+                    
+                    <div><p className='text-[17px] sm:text-[20px] lg:Text-[22px] font-semibold'>Customer Service
+                    </p></div>
+                    
+             </div>
+
+             <div className='gap-2 flex flex-col'>
+                 <div className='ml-[10px]'>
+                    <p className='text-[13px] sm:text-[15px] md:text-[16px] lg:text-[17px] font-semibold'>Email: <span className='font-normal'><link rel="stylesheet" href="" />rodayaditya@gmail.com</span> </p>
+                 </div>
+
+                 <div className='ml-[10px]'>
+                    <p className='text-[13px] sm:text-[15px] md:text-[16px] lg:text-[17px] font-semibold'>Phone: <span className='font-normal'><link rel="stylesheet" href="" />+91786455xxx</span> </p>
+                 </div>
+                  
+                 
+
+             </div>
+           </div>
+
+
+
+
+
+           <div className='gap-2 flex flex-col   '>
+             <div className='flex flex-col gap-5'>
+                   
+                    <div><p className='text-[17px] sm:text-[20px] lg:Text-[22px] font-semibold'>Office Hours</p></div>
+             </div>
+
+             <div className='gap-4 flex flex-col'>
+               <div className='ml-[10px]'>
+                    <p className='text-[13px] sm:text-[15px] md:text-[16px] lg:text-[17px] font-semibold'>Monday - Friday:  <span className='font-normal'><link rel="stylesheet" href="" />9:00 AM - 6:00 PM (EST)</span> </p>
+                </div>
+
+                 <div className='ml-[10px]'>
+                    <p className='text-[13px] sm:text-[15px] md:text-[16px] lg:text-[17px] font-semibold'>Saturday - Sunday: <span className='font-normal'><link rel="stylesheet" href="" />Closed</span> </p>
+                 </div>
+             </div>
+           </div>
+
+
+
+
+          
+
+
+
+
+           <div className='gap-2 flex flex-col   '>
+             <div className='flex flex-col gap-5'>
+                   
+                    <div><p className='text-[17px] sm:text-[20px] lg:Text-[22px] font-semibold'>Social Media</p></div>
+             </div>
+
+             <div className='gap-2 flex flex-col'>
+                
+
+             <div className='ml-[10px]'>
+                    <p className='text-[13px] sm:text-[15px] md:text-[16px] lg:text-[17px] font-semibold'>Facebook:  <span className='font-normal'><link rel="stylesheet" href="" />9:00 AM - 6:00 PM (EST)</span> </p>
+                </div>
+
+                 <div className='ml-[10px]'>
+                    <p className='text-[13px] sm:text-[15px] md:text-[16px] lg:text-[17px] font-semibold'>Instagram: <span className='font-normal'><link rel="stylesheet" href="" />Closed</span> </p>
+                 </div>
+
+                 <div className='ml-[10px]'>
+                    <p className='text-[13px] sm:text-[15px] md:text-[16px] lg:text-[17px] font-semibold'>Twitter: <span className='font-normal'><link rel="stylesheet" href="" />Closed</span> </p>
+                 </div>
+
+                 <div className='ml-[10px]'>
+                    <p className='text-[13px] sm:text-[15px] md:text-[16px] lg:text-[17px] font-semibold'>Linkedin: <span className='font-normal'><link rel="stylesheet" href="" />Closed</span> </p>
+                 </div>
+
+                 
+             </div>
+           </div>
+
+
+
         </div>
+        
+    </div>
 
-        <div className='mt-[20px]'><Herocards /> </div>
 
-        <div> <Herocounter /> </div>
-
+      
 
          <div>
             <Herolast />

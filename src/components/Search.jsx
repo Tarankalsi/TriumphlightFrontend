@@ -84,8 +84,11 @@ const Search = () => {
     return (
         <div>
             <Heroone />
-            <div className="px-[10px] py-[5px] sm:px-[25px] sm:py-[5px] md:px-[35px] lg:px-[65px] xl:px-[100px] flex 2xl:justify-center 2xl:gap-[100px]">
-                <div className="responsivesearch w-[700px] md:w-[1000px] lg:w-[1200px] h-[auto] bg-slate-100">
+            <div className='2xl:justify-center 2xl:flex'>
+
+           
+            <div className="px-[10px] py-[5px] sm:px-[25px] sm:py-[5px] md:px-[35px] lg:px-[65px] xl:px-[100px] 2xl:w-[1200px] flex 2xl:justify-center 2xl:gap-[100px]">
+                <div className="responsivesearch w-[700px] md:w-[1000px] lg:w-[1200px] h-[auto]  bg-slate-100">
                     <div className="filtersres w-[100%] h-[40px] flex justify-around">
                         <Select
                             defaultValue="Colors"
@@ -105,7 +108,7 @@ const Search = () => {
                         />
                     </div>
 
-                    <div className="search-card-back h-[auto] w-[100%] flex justify-center gap-[15px] flex-wrap p-3">
+                    <div className="search-card-back  w-[100%]  flex justify-center gap-[15px] flex-wrap p-3">
                         {loading ? (
                             <ClipLoader size={50} color={"#123abc"} loading={loading} />
                         ) : products.length ? (
@@ -119,7 +122,7 @@ const Search = () => {
                 </div>
 
                 <div className="desktopsearch w-[700px] md:w-[1000px] lg:w-[1200px] h-[auto] flex">
-                    <div className="filterpanel w-[30%] sm:w-[20%] md:w-[20%] h-[auto] px-[8px] py-[5px] flex flex-col gap-[10px]">
+                    <div className="filterpanel w-[30%] sm:w-[20%] md:w-[20%] px-[8px] py-[5px] flex flex-col gap-[10px]">
                         <Select
                             defaultValue="Color"
                             style={{ width: 120 }}
@@ -144,7 +147,7 @@ const Search = () => {
                             />
                         </div>
 
-                        <div className="justify-center w-[100%] h-[100%] flex flex-wrap gap-[25px] px-[10px] py-[5px]">
+                        <div className="justify-center w-[100%] flex flex-wrap gap-[25px] px-[20px] py-[5px]">
                             {loading ? (
                                 <ClipLoader size={40} color={"#123abc"} loading={loading} />
                             ) : products.length ? (
@@ -158,6 +161,9 @@ const Search = () => {
                     </div>
                 </div>
             </div>
+
+            </div>
+
             <Herolast />
         </div>
     );
