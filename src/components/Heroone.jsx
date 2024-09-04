@@ -1,6 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Megaphone, AlignJustify, Search, Heart, ShoppingBag, ChevronRight } from "lucide-react"
+<<<<<<< HEAD
 import { Link,} from "react-router-dom";
+=======
+import { Link, BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+>>>>>>> origin/main
 import { motion } from "framer-motion"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {  faUser } from '@fortawesome/free-solid-svg-icons';
@@ -8,6 +12,7 @@ import Cookies from 'js-cookie';
 import LoginModal from './general/LoginModal';
 
 function Heroone({ }) {
+  const navigate = useNavigate()
   const [profileDown, setProfileDown] = useState(false);
   const [isLogin, setIsLogin] = useState(false)
   const [openLoginModal, setOpenLoginModal] = useState(false)
@@ -56,6 +61,8 @@ function Heroone({ }) {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+
   return (
     <div className=''>
       {openLoginModal && <LoginModal onClose={handleLoginModal}/>}
@@ -76,9 +83,14 @@ function Heroone({ }) {
 
 
       <div>
+<<<<<<< HEAD
         <div className='navback    sticky '>
           <div className=' 2xl:justify-center 2xl:flex'>
           <div className=' min-h-24 2xl:w-[1200px]  px-[10px] py-[5px] sm:px-[25px] sm:py-[5px] md:px-[35px] lg:px-[65px] xl:px-[100px] 2xl:justify-center 2xl:gap-[100px]    flex items-center justify-between'>
+=======
+        <div className='navback sticky'>
+          <div className=' min-h-24  px-[10px] py-[5px] sm:px-[25px] sm:py-[5px] md:px-[35px] lg:px-[65px] xl:px-[100px] 2xl:justify-center 2xl:gap-[100px] flex items-center justify-between'>
+>>>>>>> origin/main
             <div>
             <Link to="/">
             <img className='w-[150px] sm:w-[180px] lg:w-[220px]' src={'https://triumphlights.s3.ap-south-1.amazonaws.com/websiteimages/logo.png'} alt="" />
@@ -92,7 +104,6 @@ function Heroone({ }) {
                 <Link to="/shop" className=''> <li>Shop</li></Link>
                 <Link to="/contact-us"><li>Contact Us</li></Link>
                 <Link to="/About-us"><li>About Us</li></Link>
-
               </ul>
             </div>
 
@@ -129,30 +140,19 @@ function Heroone({ }) {
                     {profileDown && (
                       <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
                         <div className="py-1">
-                          <button
-                            className="text-gray-700 block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
-                            onClick={() => alert('Add functionality here')}
-                          >
-                            Add
-                          </button>
-                          <a
-                            href="/profile"
-                            className="text-gray-700 block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
-                          >
-                            Your Profile
-                          </a>
-                          <a
-                            href="/orders"
+                  
+                          <Link
+                            to="/orders"
                             className="text-gray-700 block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
                           >
                             Your Orders
-                          </a>
-                          <a
+                          </Link>
+                          <Link
                             onClick={handleLogout}
                             className="text-gray-700 block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
                           >
                             Logout
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     )}

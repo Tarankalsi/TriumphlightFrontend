@@ -215,7 +215,7 @@ const ProductInfo = ({ product,  isLoggedIn , setShowModal }) => {
 
     const goToCart = () => {
         // Redirect to the cart page
-        window.location.href = "/cart";
+        navigate('/cart')
     };
 
     return (
