@@ -131,6 +131,44 @@ export default function Form({ onSubmit, buttonLabel , isSubmitting}) {
                     <AddInputField />
                 </div>
 
+{/* Dimensions */}
+<h3 className="text-center text-xl font-semibold my-3 underline">
+                    Dimensions
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <InputData
+                        type="text"
+                        label="Height (in cms)"
+                        name="height"
+                        value={formData.height}
+                        onChange={handleChange}
+                        required={true}
+                    />
+                    <InputData
+                        type="text"
+                        label="Width (in cms)"
+                        name="width"
+                        value={formData.width}
+                        onChange={handleChange}
+                        required={true}
+                    />
+                    <InputData
+                        type="text"
+                        label="Length (in cms)"
+                        name="length"
+                        value={formData.length}
+                        onChange={handleChange}
+                        required={true}
+                    />
+                    <InputData
+                        type="text"
+                        label="Item Weight (in grams)"
+                        name="item_weight"
+                        value={formData.item_weight}
+                        onChange={handleChange}
+                        required={true}
+                    />
+                </div>
                 {/* Product Details */}
                 <h3 className="text-center text-xl font-semibold my-3 underline">
                     Product Details
@@ -250,40 +288,7 @@ export default function Form({ onSubmit, buttonLabel , isSubmitting}) {
                     />
                 </div>
 
-                {/* Dimensions */}
-                <h3 className="text-center text-xl font-semibold my-3 underline">
-                    Dimensions
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <InputData
-                        type="text"
-                        label="Height"
-                        name="height"
-                        value={formData.height}
-                        onChange={handleChange}
-                    />
-                    <InputData
-                        type="text"
-                        label="Width"
-                        name="width"
-                        value={formData.width}
-                        onChange={handleChange}
-                    />
-                    <InputData
-                        type="text"
-                        label="Length"
-                        name="length"
-                        value={formData.length}
-                        onChange={handleChange}
-                    />
-                    <InputData
-                        type="text"
-                        label="Item Weight"
-                        name="item_weight"
-                        value={formData.item_weight}
-                        onChange={handleChange}
-                    />
-                </div>
+                
 
                 {/* Extra Details */}
                 <h3 className="text-center text-xl font-semibold my-3 underline">

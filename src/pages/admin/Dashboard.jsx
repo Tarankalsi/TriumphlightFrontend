@@ -17,11 +17,11 @@ const Dashboard = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const isLogin = checkLogin()
-    if (!isLogin) {
+    const adminToken = Cookies.get('adminToken')
+    if (!adminToken) {
       navigate('/admin/login', { replace: true })
     }
-  }, [])
+  }, [navigate])
 
   const onLogout = () => {
     Cookies.remove("adminToken");
@@ -65,19 +65,20 @@ const Dashboard = () => {
           </ul>
         </nav>
 
-        {/* Logout Button Container */}
-        <div className="flex justify-end p-4 md:mb-10">
-          <button onClick={onLogout} className="text-sm font-bold text-blue-500 hover:text-blue-700 bg-white px-3 py-1 rounded">
-            Logout
-          </button>
-        </div>
+      
       </aside>
 
 
       {/* Main Content */}
       <div className="flex-1 p-6">
-        <header className="mb-6">
+        <header className="mb-6 flex justify-between items-center">
           <h1 className="text-3xl font-semibold text-gray-900">Dashboard Overview</h1>
+            {/* Logout Button Container */}
+        <div className="">
+          <button onClick={onLogout} className="text-sm font-bold text-blue-500 border-2 border-blue-500 hover:border-blue-800 hover:text-blue-800 bg-white px-3 py-1 rounded">
+            Logout
+          </button>
+        </div>
         </header>
 
 
