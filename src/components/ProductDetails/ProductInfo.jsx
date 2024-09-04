@@ -4,15 +4,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faIndianRupee, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import Cookies from 'js-cookie';
 import { useNavigate } from "react-router-dom";
+import { SyncLoader } from "react-spinners";
 
 const apiUrl = import.meta.env.VITE_URL;
 
-const ProductInfo = ({ product,  isLoggedIn }) => {
+const ProductInfo = ({ product,  isLoggedIn , setShowModal }) => {
     const navigate = useNavigate()
     const [selectedColor, setSelectedColor] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const [colorError, setColorError] = useState(false);
     const [isInCart, setIsInCart] = useState(false);
+    const [buyNowLoader, setBuyNowLoader] = useState(false);
 
 
 
@@ -52,21 +54,52 @@ const ProductInfo = ({ product,  isLoggedIn }) => {
                 }, 2000);
                 return;
             }
+
+     
+            const authToken = Cookies.get('authToken');
             const cartToken = localStorage.getItem('cartToken');
-            if (!cartToken) {
-                const newCart = await axios.post(`${apiUrl}/user/create/cart`);
-                localStorage.setItem('cartToken', newCart.data.cartToken);
+
+            if (authToken) {
+                if (!cartToken) {
+                    const newCart = await axios.post(`${apiUrl}/user/create/cart` , {
+                        "is_temporary": false,
+                    },{
+                        headers: {
+                            Authorization : `Bearer ${authToken}`
+                        }
+                    });
+                    localStorage.setItem('cartToken', newCart.data.cartToken);
+                }
+                await axios.post(`${apiUrl}/user/addToCart/${product.product_id}`, {
+                    quantity: quantity,
+                    color: selectedColor
+                },
+                    {
+                        headers: {
+                            'cart-token': `${localStorage.getItem('cartToken')}`
+                        }
+                    });
+                setIsInCart(true);
+            }else {
+
+                if (!cartToken) {
+                    const newCart = await axios.post(`${apiUrl}/user/create/cart` , {
+                        "is_temporary": false,
+                    });
+                    localStorage.setItem('cartToken', newCart.data.cartToken);
+                }
+                await axios.post(`${apiUrl}/user/addToCart/${product.product_id}`, {
+                    quantity: quantity,
+                    color: selectedColor
+                },
+                    {
+                        headers: {
+                            'cart-token': `${localStorage.getItem('cartToken')}`
+                        }
+                    });
+                setIsInCart(true);
             }
-            await axios.post(`${apiUrl}/user/addToCart/${product.product_id}`, {
-                quantity: quantity,
-                color: selectedColor
-            },
-                {
-                    headers: {
-                        'cart-token': `${localStorage.getItem('cartToken')}`
-                    }
-                });
-            setIsInCart(true);  // Ensure the button updates immediately after adding to cart
+             // Ensure the button updates immediately after adding to cart
         } catch (error) {
             console.error(error);
         }
@@ -76,67 +109,109 @@ const ProductInfo = ({ product,  isLoggedIn }) => {
     const onBuyNowClick = async () => {
         if (!isLoggedIn) {
             setShowModal(true);
-        } else {
-
-            if (selectedColor === null) {
-                setColorError(true);
-                setTimeout(() => {
-                    setColorError(false);
-                }, 2000);
-                return;
-            }
-
-            const tempCartToken = localStorage.getItem('tempCart');
-
-            try {
-                let addProduct
-                if (tempCartToken) {
-                    await axios.delete(`${apiUrl}/user/delete/cart/tempCartItems`,{
+            return; // Exit early if the user is not logged in
+        }
+    
+        if (selectedColor === null) {
+            setColorError(true);
+            setTimeout(() => {
+                setColorError(false);
+            }, 2000);
+            return;
+        }
+    
+        setBuyNowLoader(true);
+    
+        const authToken = Cookies.get('authToken');
+        let tempCartToken = localStorage.getItem('tempCart');
+    
+        try {
+            if (tempCartToken) {
+                // Delete existing items in the temporary cart
+                await axios.delete(`${apiUrl}/user/delete/cart/tempCartItems`, {
+                    headers: {
+                        'cart-token': tempCartToken,
+                        'Authorization': `Bearer ${authToken}`,
+                    },
+                });
+    
+                // Add the product to the existing temporary cart
+                const addProductResponse = await axios.post(
+                    `${apiUrl}/user/addToCart/${product.product_id}`,
+                    {
+                        quantity: quantity,
+                        color: selectedColor,
+                    },
+                    {
                         headers: {
                             'cart-token': tempCartToken,
-                            'Authorization': `Bearer ${Cookies.get('authToken')}`
-                        }
-                    })
-
-                    addProduct = await axios.post(
-                        `${apiUrl}/user/addToCart/${product.product_id}`,
-                        {
-                            quantity: quantity,
-                            color: selectedColor,
                         },
-                        {
-                            headers: {
-                                'cart-token': tempCartToken,
-                            },
-                        }
-                    );
-                } else {
-                    const tempToken = await createTemporaryCart(); // Await the cart creation
-
-                    if (!tempToken) {
-                        console.error('Failed to create temporary cart');
-                        return; // Exit if the temp cart creation failed
                     }
-                    addProduct = await axios.post(
-                        `${apiUrl}/user/addToCart/${product.product_id}`,
-                        {},
-                        {
-                            headers: {
-                                'cart-token': tempToken,
-                            },
-                        }
-                    );
+                );
+    
+                if (addProductResponse.status === 200) {
+                    navigate(`/cart/checkout/${tempCartToken}`);
+                }
+            } else {
+                // No temporary cart exists; create a new temporary cart
+                if (!authToken) {
+                    console.error('User is not authenticated.');
+                    return; // Exit if user is not authenticated
                 }
 
-
-                if (addProduct.status === 200) {
-                    navigate(`/cart/checkout/${localStorage.getItem('tempCart')}`);
+    
+                const tempCartResponse = await axios.post(
+                    `${apiUrl}/user/create/cart`,
+                    { "is_temporary": true },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${authToken}`,
+                        },
+                    }
+                );
+    
+                const tempToken = tempCartResponse.data.cartToken;
+                if (!tempToken) {
+                    console.error('Failed to create temporary cart.');
+                    return; // Exit if temporary cart creation failed
                 }
-            } catch (error) {
-                console.error('Error adding product to cart:', error);
+    
+                await axios.delete(`${apiUrl}/user/delete/cart/tempCartItems`, {
+                    headers: {
+                        'cart-token': tempToken,
+                        'Authorization': `Bearer ${authToken}`,
+                    },
+                });
+                // Store the newly created temporary cart token in localStorage
+                localStorage.setItem('tempCart', tempToken);
+
+
+    
+                // Add the product to the newly created temporary cart
+                const addProductResponse = await axios.post(
+                    `${apiUrl}/user/addToCart/${product.product_id}`,
+                    {
+                        quantity: quantity,
+                        color: selectedColor,
+                    },
+                    {
+                        headers: {
+                            'cart-token': tempToken,
+                        },
+                    }
+                );
+    
+                if (addProductResponse.status === 200) {
+                    navigate(`/cart/checkout/${tempToken}`);
+                }
             }
+        } catch (error) {
+            console.error('Error handling the Buy Now process:', error);
+        } finally {
+            setBuyNowLoader(false); // Ensure the loader is stopped in both success and error cases
         }
     };
+    
 
     const goToCart = () => {
         // Redirect to the cart page
@@ -213,8 +288,9 @@ const ProductInfo = ({ product,  isLoggedIn }) => {
                                 </button>
                             )}
                             <button onClick={onBuyNowClick} className='rounded-lg bg-gray-500 hover:bg-gray-800 text-white h-8 sm:h-10 text-sm'>
-                                Buy Now
+                                {buyNowLoader ? <SyncLoader size={8} color='#ffffff' /> :"Buy Now"}
                             </button>
+                            
                         </div>
                     ) : (
                         <div>

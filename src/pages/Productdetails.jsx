@@ -28,6 +28,7 @@ const Productdetails = () => {
 
     useEffect(() => {
         const login = checkLogin();
+        console.log("Login in true")
         setIsLoggedIn(login);
     }, []);
 
@@ -104,7 +105,7 @@ const Productdetails = () => {
                         {loading ? (
                             <ProductInfoSkeleton />
                         ) : (
-                            <ProductInfo product={product} isLoggedIn={isLoggedIn} />
+                            <ProductInfo product={product} isLoggedIn={isLoggedIn} setShowModal={setShowModal} />
                         )}
                     </div>
 

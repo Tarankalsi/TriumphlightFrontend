@@ -47,7 +47,6 @@ export default function Checkout() {
                 setLoading(false);  // Stop loading after data is fetched or on error
             }
         };
-
         fetchCart();
     }, [token]);
 
@@ -89,9 +88,7 @@ export default function Checkout() {
                 }
             });
 
-            if (response.status === 200) {
-                navigate('/orders');
-            }
+            navigate('/orders')
         } catch (error) {
             console.error("Error placing order: ", error);
         } finally {
@@ -135,11 +132,11 @@ export default function Checkout() {
                                         <OrderSummaryCard key={cartItem.cart_item_id} cartItem={cartItem} />
                                     ))
                                 )}
-                                { ShowBill &&  (cart && <Bill bill={bill} />)}
+                                {ShowBill && (cart && <Bill bill={bill} />)}
                             </div>
 
                             <button onClick={placeOrder} className="w-full font-semibold text-white bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700">
-                                {functionLoading ? <SyncLoader size={8} color='#ffffff' /> :"Place Order"}
+                                {functionLoading ? <SyncLoader size={8} color='#ffffff' /> : "Place Order"}
                             </button>
                         </div>
                     </div>
