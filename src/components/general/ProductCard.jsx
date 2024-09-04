@@ -22,21 +22,17 @@ export default function ProductCard({ product }) {
 
           </div>
 
-          <div className='w-[150px] h-[90px] lg:w-[190px] lg:h-[110px]   flex flex-col gap-[3px] justify-center'>
-            <p className='text-[12px] ml-[10px] font-semibold lg:text-[15px]'>{product.name}</p>
-            <p className='ml-[10px]  text-xs'>{product.category.name}</p>
-            <div className='flex items-center gap-[5px]'>
-        
-              
-
-            </div>
-            <p className='text-[13px] ml-[10px] font-semibold lg:text-[20px] my-4' >
-              <FontAwesomeIcon className='size-4' icon={faIndianRupee}/>
+          <div className='w-[150px] h-[90px] lg:w-[190px] lg:h-[110px]   flex flex-col gap-[5px] justify-center'>
+            <p className='text-[13px] ml-[5px] font-semibold lg:text-[15px]'>{product.name}</p>
+            <p className='ml-[5px]  text-[13px]'>{product.category.name}</p>
+            
+            <p className='text-[14px] ml-[5px] font-semibold lg:text-[20px] ' >
+              <FontAwesomeIcon className='size-3' icon={faIndianRupee}/>
               {product.price}/-</p>
           </div>
 
           <div className='button w-[150px] h-[30px] lg:w-[190px] lg:h-[30px] bg-slate-600 flex justify-center'>
-            <button ><p className='text-[12px] font-medium  text-white'>View All</p></button>
+            <button ><p className='text-[12px] font-medium  text-white'>View </p></button>
           </div>
 
         </div>

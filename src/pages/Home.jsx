@@ -6,6 +6,8 @@ import Herocards from '../components/HomPage/Herocards';
 import Heroone from '../components/Heroone';
 import Herolast from '../components/Herolast';
 import ClipLoader from 'react-spinners/ClipLoader';  // Import spinner from react-spinners
+import Bulbglow from '../components/HomPage/Bulbglow';
+
 
 const apiUrl = import.meta.env.VITE_URL;
 
@@ -53,9 +55,13 @@ const Home = () => {
         </div>
       ) : (
         <>
+          <Bulbglow />
+          
           {indoor && <Herocards key={indoor.category_id} category={indoor} />}
+         
           {outdoor && <Herocards key={outdoor.category_id} category={outdoor} />}
           <Heroflex />
+          
           <Herocounter />
           <Herolast />
         </>
