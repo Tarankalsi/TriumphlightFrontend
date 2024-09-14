@@ -29,7 +29,7 @@ export default function PhoneNumber() {
             }
         }
         fetchUser()
-        console.log("Fetch User Phone Number")
+
 
     }, [editDisable === true])
 

@@ -42,7 +42,6 @@ const Products = () => {
               <tr className="bg-gray-200 text-gray-700">
                 <th className="px-6 py-3 text-left font-medium">Product Name</th>
                 <th className="px-6 py-3 text-left font-medium">Category</th>
-                <th className="px-6 py-3 text-left font-medium">Price</th>
                 <th className="px-6 py-3 text-left font-medium">Stock</th>
                 <th className="px-6 py-3 text-left font-medium">Actions</th>
               </tr>

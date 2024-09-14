@@ -21,8 +21,8 @@ export default function CreateGallery() {
 
   useEffect(() => {
 
-    if (!productData.name || !productData.description || !productData.price || !productData.availability || !productData.SKU || !productData.colors.length) {
-      console.log("ProductData in createGallery :", formData)
+    if (!productData.name || !productData.description  || !productData.availability || !productData.SKU || !productData.colors.length || !productData.watts.length) {
+
       navigate('../create-product')
       console.error("Missing required fields in create");
       return;
@@ -30,8 +30,6 @@ export default function CreateGallery() {
 
   }, [])
 
-  console.log("FormData in createGallery :", formData)
-  console.log("ProductData in createGallery :", productData)
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files);
     const newImages = files.map(file => ({
@@ -59,7 +57,7 @@ export default function CreateGallery() {
           'Authorization': `Bearer ${Cookies.get('adminToken')}`
         }
       });
-      console.log("response o created product:", response.data)
+
       await Promise.all(images.map(async (image) => {
         const { data } = await axios.post(`${apiUrl}/product/create/gallery/presigned/${response.data.product.product_id}`, {
           imageName: image.file.name,
@@ -70,7 +68,7 @@ export default function CreateGallery() {
             'Authorization': `Bearer ${Cookies.get('adminToken')}`,
           },
         });
-        console.log("response of presigned url :", data)
+
 
         const uploadImage = await uploadImageInS3(image.file, data.url);
         if (uploadImage.status === 200) {
@@ -82,7 +80,7 @@ export default function CreateGallery() {
               'Authorization': `Bearer ${Cookies.get('adminToken')}`,
             },
           });
-          console.log("response of metadata : ", metadata.data)
+  
         }
       }));
 

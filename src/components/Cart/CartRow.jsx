@@ -16,7 +16,7 @@ export default function CartRow({ cartItem, onQuantityChange }) {
                 const response = await axios.get(`${apiUrl}/product/${cartItem.product_id}`);
                 const fetchedProduct = response.data.data;
                 setProduct(fetchedProduct);
-                setSubTotal(fetchedProduct.price * quantity);
+
             } catch (error) {
                 console.error("Error fetching product: ", error);
             }
@@ -82,14 +82,19 @@ export default function CartRow({ cartItem, onQuantityChange }) {
                     </div>
                     <div className="flex flex-col justify-center mx-4">
                         <p className="text-lg font-semibold">{product?.name || "Product Name"}</p>
+                        <div className='flex gap-3'>
                         <p className="text-sm text-gray-600">Color: {cartItem.color}</p>
+                        <span className='border border-gray-400 my-0.5'></span>
+                        <p className="text-sm text-gray-600">{cartItem.watt.watt} Watt</p>
+                        </div>
+                       
                     </div>
                 </div>
 
                 <div className='flex justify-center gap-4'>
 
                     <div className="flex flex-row sm:flex-col space-x-8 sm:space-x-2 justify-center items-center">
-                        <p className="text-lg font-semibold">Rs. {subTotal}</p>
+                        <p className="text-lg font-semibold">Rs. {cartItem.watt.price * cartItem.quantity}</p>
                         <div className="flex justify-center items-center mt-2">
                             <button
                                 className="text-lg font-semibold px-2 py-1 border rounded-l bg-gray-100 hover:bg-gray-200"

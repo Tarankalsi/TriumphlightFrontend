@@ -17,7 +17,7 @@ function YourOrderCard({ order, onCancel }) {
         setIsDropdownOpen(false);
     };
 
-    console.log('Your order')
+
 
     return (
         <div
@@ -67,8 +67,12 @@ function YourOrderCard({ order, onCancel }) {
                                     <div>
                                         <li className='space-x-6' key={item.order_item_id}>
                                             <span>{item.product.name}</span>
+                                            
                                             <span>Quantity: {item.quantity}</span>
+                                            
                                             <span>Color: {item.color}</span>
+                                          
+                                            <span>{item.watt} Watt</span>
 
                                         </li>
                                     </div>

@@ -7,11 +7,12 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import InputDropdown from './InputDropdown';
 import AddInputField from './AddInputField';
+import AddProductWattInputField from './AddProductWattInputField';
 
 
 const apiUrl = import.meta.env.VITE_URL;
 
-export default function Form({ onSubmit, buttonLabel , isSubmitting}) {
+export default function Form({ onSubmit, buttonLabel, isSubmitting }) {
 
     const [formData, setFormData] = useRecoilState(createProductAtom);
     const [categories, setCategories] = useRecoilState(categoriesAtom);
@@ -34,7 +35,7 @@ export default function Form({ onSubmit, buttonLabel , isSubmitting}) {
             ...formData,
             [name]: convertedValue,
         });
-        
+
 
     };
 
@@ -48,10 +49,10 @@ export default function Form({ onSubmit, buttonLabel , isSubmitting}) {
                 console.error("Error fetching categories:", error.response ? error.response.data : error.message);
             }
         };
-    
+
         fetchCategories();
     }, []);
-    
+
 
     return (
         <div>
@@ -78,22 +79,7 @@ export default function Form({ onSubmit, buttonLabel , isSubmitting}) {
                         onChange={handleChange}
                         required={true}
                     />
-                    <InputTextField
-                        type="text"
-                        label="Description"
-                        name="description"
-                        value={formData.description}
-                        onChange={handleChange}
-                        required={true}
-                    />
-                    <InputData
-                        type="number"
-                        label="Price"
-                        name="price"
-                        value={formData.price}
-                        onChange={handleChange}
-                        required={true}
-                    />
+                   
                     <InputData
                         type="number"
                         label="Availability"
@@ -122,22 +108,48 @@ export default function Form({ onSubmit, buttonLabel , isSubmitting}) {
 
                 </div>
 
+                <h3 className="text-center text-xl mt-10 font-semibold my-3 underline">
+                    Description
+                </h3>
+                <div className='grid grid-cols-1 gap-6 '>
+                <InputTextField
+                        type="text"
+                        label="Description"
+                        name="description"
+                        rows={8}
+                        value={formData.description}
+                        onChange={handleChange}
+                        required={true}
+                    />
+                </div>
 
-                <h3 className="text-center text-xl font-semibold my-3 underline">
+
+                <h3 className="text-center text-xl font-semibold mb-3 mt-10 underline">
                     Add Color Variants
                 </h3>
-
+                <div className='text-center text-sm text-gray-600 mb-2'>Enter values carefully. Once a color variant is created, it cannot be deleted or updated. </div>
                 <div className="grid grid-cols-1 gap-6">
                     <AddInputField />
                 </div>
 
-{/* Dimensions */}
-<h3 className="text-center text-xl font-semibold my-3 underline">
+
+                <h3 className="text-center text-xl font-semibold mb-3 mt-10 underline">
+                    Add Watt Variants
+                </h3>
+                <div className='text-center text-sm text-gray-600 mb-2'>Enter values carefully. Once a watt variant is created, it cannot be deleted, and only the price can be updated </div>
+                <div className="grid grid-cols-1 gap-6">
+                    <AddProductWattInputField />
+                </div>
+
+
+
+                {/* Dimensions */}
+                <h3 className="text-center text-xl font-semibold mb-3 mt-10 underline">
                     Dimensions
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <InputData
-                        type="text"
+                        type="number"
                         label="Height (in cms)"
                         name="height"
                         value={formData.height}
@@ -145,7 +157,7 @@ export default function Form({ onSubmit, buttonLabel , isSubmitting}) {
                         required={true}
                     />
                     <InputData
-                        type="text"
+                        type="number"
                         label="Width (in cms)"
                         name="width"
                         value={formData.width}
@@ -153,7 +165,7 @@ export default function Form({ onSubmit, buttonLabel , isSubmitting}) {
                         required={true}
                     />
                     <InputData
-                        type="text"
+                        type="number"
                         label="Length (in cms)"
                         name="length"
                         value={formData.length}
@@ -161,7 +173,7 @@ export default function Form({ onSubmit, buttonLabel , isSubmitting}) {
                         required={true}
                     />
                     <InputData
-                        type="text"
+                        type="number"
                         label="Item Weight (in grams)"
                         name="item_weight"
                         value={formData.item_weight}
@@ -170,7 +182,7 @@ export default function Form({ onSubmit, buttonLabel , isSubmitting}) {
                     />
                 </div>
                 {/* Product Details */}
-                <h3 className="text-center text-xl font-semibold my-3 underline">
+                <h3 className="text-center text-xl font-semibold my-3 mt-10  underline">
                     Product Details
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -288,10 +300,10 @@ export default function Form({ onSubmit, buttonLabel , isSubmitting}) {
                     />
                 </div>
 
-                
+
 
                 {/* Extra Details */}
-                <h3 className="text-center text-xl font-semibold my-3 underline">
+                <h3 className="text-center text-xl font-semibold my-3 mt-10  underline">
                     More Extra Details
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -397,12 +409,12 @@ export default function Form({ onSubmit, buttonLabel , isSubmitting}) {
                 </div>
 
                 <button
-        type="submit"
-        className="px-6 py-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-transform duration-300 ease-in-out"
-        disabled={isSubmitting}
-    >
-        {isSubmitting ? "Creating..." : buttonLabel}
-    </button>
+                    type="submit"
+                    className="px-6 py-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-transform duration-300 ease-in-out"
+                    disabled={isSubmitting}
+                >
+                    {isSubmitting ? "Creating..." : buttonLabel}
+                </button>
             </form>
         </div>
     )

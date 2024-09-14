@@ -16,7 +16,7 @@ export default function Bill({ bill }) {
     if (isLoading) {
         return <BillLoader />;
     }
-
+    
     return (
         <>
             <div className="flex justify-between font-semibold mt-2">
@@ -26,6 +26,7 @@ export default function Bill({ bill }) {
                     {bill.subTotal}
                 </span>
             </div>
+
             <div className="flex justify-between font-semibold mt-2">
                 <span>Discount</span>
                 <span>

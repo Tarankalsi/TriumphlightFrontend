@@ -17,14 +17,16 @@ const Herocards = ({ category }) => {
         try {
           const response = await axios.get(`${apiUrl}/product/category/${category.category_id}`);
           setProducts(response.data.products);
+          console.log(response.data.products)
         } catch (error) {
           console.error('Error fetching products:', error);
         } finally {
           setLoading(false); // Stop loading
-        }
+        } 
       }
     };
     fetchProducts();
+
   }, [category]);
 
   // Skeleton Loader for Products
@@ -45,8 +47,8 @@ const Herocards = ({ category }) => {
 
   return (
     <div className='px-[10px] py-[5px] 2xl:flex 2xl:flex-col 2xl:items-center sm:px-[25px] sm:py-[5px] md:px-[35px] lg:px-[65px] xl:px-[100px] 2xl:px-[200px]'>
-      <div className='flex justify-center py-[10px]'>
-        <p className='text-[20px] tracking-wider sm:text-[24px] lg:text-[26px] xl:text-[28px] font-regular'>
+      <div className='flex justify-center py-[10px] '>
+        <p className='text-[20px] tracking-wide sm:text-[24px] lg:text-[26px] xl:text-[28px] font-semibold'>
           {category?.name}
         </p>
       </div>

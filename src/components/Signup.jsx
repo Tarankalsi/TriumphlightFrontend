@@ -13,7 +13,7 @@ const SignUp = () => {
 
 
   const handleSubmit = (e) => {
-    console.log(e);
+
     name = e.target.name;
     value = e.target.value;
 

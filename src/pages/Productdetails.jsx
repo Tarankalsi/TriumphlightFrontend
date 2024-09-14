@@ -28,7 +28,7 @@ const Productdetails = () => {
 
     useEffect(() => {
         const login = checkLogin();
-        console.log("Login in true")
+
         setIsLoggedIn(login);
     }, []);
 

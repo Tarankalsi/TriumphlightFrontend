@@ -23,15 +23,15 @@ const OTPVerification = ({ adminId,email, onVerifySuccess, onResendOtp }) => {
         setLoading(true);
         setError("");
         try {
-            console.log("You Enter This OTP :",otp)
+   
             const response = await axios.post(`${apiUrl}/admin/otp-verification/${adminId}`, { 
                 code:otp 
             });
             if (response.data.success) {
-                console.log(response.data)
+            
                 onVerifySuccess(response.data.token);
             } else {
-                console.log(response.data)
+    
                 setError("Invalid OTP. Please try again.");
             }
         } catch (error) {

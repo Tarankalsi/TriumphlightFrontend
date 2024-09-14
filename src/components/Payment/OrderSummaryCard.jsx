@@ -32,9 +32,10 @@ function OrderSummaryCard({ cartItem }) {
           <h3 className="text-lg font-semibold">{product.name}</h3>
           <p className="text-sm text-gray-500">Color: {cartItem.color}</p>
           <p className="text-sm text-gray-500">Quantity: {cartItem.quantity}</p>
+          <p className="text-sm text-gray-500">{cartItem.watt.watt}</p>
         </div>
         <div className="text-right">
-          <p className="text-lg font-bold"><FontAwesomeIcon className='size-4 mr-1' icon={faIndianRupee}/>{product.price}</p>
+          <p className="text-lg font-bold"><FontAwesomeIcon className='size-4 mr-1' icon={faIndianRupee}/>{cartItem.watt.price}</p>
         </div>
       </div>
     </div>

@@ -26,7 +26,7 @@ function AdminLogin() {
             const token = Cookies.get('adminToken');
             if (token) {
                 const response = await validateToken(token, `${apiUrl}/admin/validate-token`);
-                console.log(response);
+
                 if (response.success) {
                     navigate('/admin');
                 } else {

@@ -14,7 +14,7 @@ export default function TableRow({ product }) {
     const [successModel, setSuccessModal] = useState(false)
 
     const editAction = () => {
-        console.log("Edit product:", product.product_id);
+
         navigate(`./edit-product/${product.product_id}`)
     };
 
@@ -30,7 +30,7 @@ export default function TableRow({ product }) {
                   'Authorization': `Bearer ${Cookies.get('adminToken')}`
                 }
               });
-            console.log(response.data)
+
             if (response.data.success) {
                 setSuccessModal(true)
             }
@@ -41,7 +41,7 @@ export default function TableRow({ product }) {
         }
     };
 
-    console.log(product)
+
     return (
         <>
         <SuccessModal isOpen={successModel} onClose={successModalClosed}/>
@@ -54,7 +54,6 @@ export default function TableRow({ product }) {
                     }
                 }><td className="px-6 py-4 whitespace-nowrap hover:text-blue-700">{product.name}</td></td>
                 <td className="px-6 py-4 whitespace-nowrap">{product.category.name}</td>
-                <td className="px-6 py-4 whitespace-nowrap"><FontAwesomeIcon icon={faIndianRupee} className='size-3.5 mr-0.5'/>{product.price}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{product.availability}</td>
                 <td className="px-4 py-4 whitespace-nowrap flex gap-2">
                     <ConfirmationModal requestAction={editAction} label={"Edit"} color={"green"} />

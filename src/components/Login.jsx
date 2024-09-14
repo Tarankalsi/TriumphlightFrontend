@@ -104,7 +104,7 @@ const Login = ({ onClose }) => {
         Cookies.set('authToken', response.data.token, { expires: 7, secure: true, sameSite: 'Strict' });
 
         const cartToken = localStorage.getItem('cartToken');
-        console.log("Cart Token: ", cartToken);
+
         if (cartToken) {
 
           <div className="0">
@@ -116,14 +116,14 @@ const Login = ({ onClose }) => {
             }
           })
 
-          console.log("cart Data : ", cart.data)
+      
           const addUserResponse = await axios.put(`${apiUrl}/user/add-user-id/${cart.data.cart.cart_id}`, {}, {
             headers: {
               'Authorization': `Bearer ${response.data.token}`
             }
           })
 
-          console.log("Response adding user in cart: ", addUserResponse.data)
+
         }
         onClose();
         window.location.reload();

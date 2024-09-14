@@ -6,6 +6,8 @@ import InputTextField from './InputTextField';
 import axios from 'axios';
 import InputDropdown from './InputDropdown';
 import EditAddInputField from './EditAddInputField';
+import AddProductWattInputField from './AddProductWattInputField';
+import EditAddWattInputField from './EditAddWattInputField';
 
 
 const apiUrl = import.meta.env.VITE_URL;
@@ -17,7 +19,7 @@ export default function EditForm({ onSubmit, buttonLabel, isSubmitting, initialD
 
   useEffect(() => {
     // Initialize formData with initialData on mount
-    setFormData(initialData);
+    setFormData({...initialData});
   }, [initialData, setFormData]);
   
   const handleChange = (e) => {
@@ -26,7 +28,7 @@ export default function EditForm({ onSubmit, buttonLabel, isSubmitting, initialD
     let convertedValue;
 
     if (type === 'number') {
-      convertedValue = value === '' ? value : Number(value);
+      convertedValue = value === '' ? '' : Number(value);
     } else {
       convertedValue = value;
     }
@@ -41,7 +43,11 @@ export default function EditForm({ onSubmit, buttonLabel, isSubmitting, initialD
     const fetchCategories = async () => {
       try {
         const response = await axios.get(`${apiUrl}/product/categories`);
-        setCategories(response.data.categories);
+        if (response.data && response.data.categories) {
+          setCategories(response.data.categories);
+        } else {
+          console.error('Error: No categories data found');
+        }
       } catch (error) {
         console.error('Error fetching categories:', error.response ? error.response.data : error.message);
       }
@@ -72,22 +78,8 @@ export default function EditForm({ onSubmit, buttonLabel, isSubmitting, initialD
             onChange={handleChange}
             required={true}
           />
-          <InputTextField
-            type="text"
-            label="Description"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            required={true}
-          />
-          <InputData
-            type="number"
-            label="Price"
-            name="price"
-            value={formData.price}
-            onChange={handleChange}
-            required={true}
-          />
+        
+      
           <InputData
             type="number"
             label="Availability"
@@ -112,14 +104,34 @@ export default function EditForm({ onSubmit, buttonLabel, isSubmitting, initialD
           />
         </div>
 
+        <h3 className="text-center text-xl font-semibold my-3 mt-10 underline">Description</h3>
+        <div className='grid grid-cols-1 gap-6'>
+        <InputTextField
+            type="text"
+            label="Description"
+            name="description"
+            rows={8}
+            value={formData.description}
+            onChange={handleChange}
+            required={true}
+          />
+        </div>
+       
+
         {/* Color Variants */}
-        <h3 className="text-center text-xl font-semibold my-3 underline">Add Color Variants</h3>
+        <h3 className="text-center text-xl font-semibold my-3 mt-10 underline">Add Color Variants</h3>
         <div className="grid grid-cols-1 gap-6">
-          <EditAddInputField product={initialData} />
+          <EditAddInputField  />
+        </div>
+
+        <h3 className="text-center text-xl font-semibold my-3 mt-10 underline">Add Watt Variants</h3>
+        
+        <div className="grid grid-cols-1 gap-6">
+          <EditAddWattInputField  />
         </div>
 
         {/* Product Details */}
-        <h3 className="text-center text-xl font-semibold my-3 underline">Product Details</h3>
+        <h3 className="text-center text-xl font-semibold my-3 underline mt-10">Product Details</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {[
             'material', 'shape', 'design_style', 'fixture_form', 'fixture_type', 'ideal_for', 'power_source',
@@ -138,7 +150,7 @@ export default function EditForm({ onSubmit, buttonLabel, isSubmitting, initialD
         </div>
 
         {/* Dimensions */}
-        <h3 className="text-center text-xl font-semibold my-3 underline">Dimensions</h3>
+        <h3 className="text-center text-xl font-semibold my-3 underline mt-10">Dimensions</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {['height', 'width', 'length', 'item_weight'].map((field) => (
             <InputData
@@ -151,9 +163,9 @@ export default function EditForm({ onSubmit, buttonLabel, isSubmitting, initialD
             />
           ))}
         </div>
-
+          
         {/* Extra Details */}
-        <h3 className="text-center text-xl font-semibold my-3 underline">More Extra Details</h3>
+        <h3 className="text-center text-xl font-semibold my-3 underline mt-10">More Extra Details</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {[
             'power_rating', 'brightness', 'controller_type', 'switch_type', 'switch_mounting', 'mounting_type',

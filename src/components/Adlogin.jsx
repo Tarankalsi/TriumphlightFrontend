@@ -9,7 +9,7 @@ const Adlogin = () => {
   const [password,setpassword]=useState('')
   
 
-  console.log({ email,password })
+
 
   const handleEmail =(e) =>{
     setemail(e.target.value)
@@ -35,11 +35,11 @@ const Adlogin = () => {
         email:email,
         password: password ,
     })
-    console.log(result.data)
+
     
     
 
-    console.log({ email,password })
+ 
   }
 
   return (

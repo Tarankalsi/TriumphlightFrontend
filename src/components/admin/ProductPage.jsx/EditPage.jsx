@@ -29,14 +29,18 @@ export default function EditPage() {
                 'Authorization': `Bearer ${Cookies.get('adminToken')}`
               }
             });
-            setProduct(response.data.data); // Assuming the response data has an "images" array
+            if (response.data && response.data.data) {
+              setProduct(response.data.data);
+            } else {
+              console.error('No product data received');
+            }// Assuming the response data has an "images" array
           } catch (error) {
             console.error('Error fetching existing images:', error);
           }
         };
     
         fetchProduct();
-      }, [product_id, navigate]);
+      }, [product_id]);
   return (
     <div>
       {product && <EditGallery product={product}/>}

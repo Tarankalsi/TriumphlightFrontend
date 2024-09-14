@@ -5,6 +5,7 @@ import { Button } from 'antd';
 import Herocards from './HomPage/Herocards';
 import Heroone from './Heroone';
 import Herolast from './Herolast';
+import Heroflex from './Heroflex';
 
 const Contactus = () => {
     const { TextArea } = Input;
@@ -12,6 +13,11 @@ const Contactus = () => {
         <div>
             <div>
                 <Heroone />
+            </div>
+            <div>
+            <div className=' bg-slate-500 '>
+                        <img className='w-[100%] h-[100%]  object-cover' src="https://triumphlights.s3.ap-south-1.amazonaws.com/websiteimages/2.png" alt="" />
+                    </div>
             </div>
         
 
@@ -93,7 +99,7 @@ const Contactus = () => {
         <div className='p-4 py-[20px] px-[10px] sm:px-[25px] sm:py-[40px] md:px-[35px] lg:px-[65px] xl:px-[100px] 2xl:w-[1200px] gap-6 flex flex-col'>
           <div className='gap-2 flex flex-col   '>
              <div className='flex flex-col gap-5'>
-                    <div> <p className=' text-center text-[22px]  sm:text-[22px] lg:text-[25px] font-semibold'>Contact Us</p></div>
+                    <div> <p className=' text-center text-[22px] text-blue-600  sm:text-[22px] lg:text-[25px] font-semibold'>Contact Us</p></div>
                     
              </div>
 
@@ -121,7 +127,7 @@ const Contactus = () => {
                  </div>
 
                  <div className='ml-[10px]'>
-                    <p className='text-[13px] sm:text-[15px] md:text-[16px] lg:text-[17px] font-semibold'>Phone: <span className='font-normal'><link rel="stylesheet" href="" />+91786455xxx</span> </p>
+                    <p className='text-[13px] sm:text-[15px] md:text-[16px] lg:text-[17px] font-semibold'>Phone: <span className='font-normal'><link rel="stylesheet" href="" />+91 70427 44407</span> </p>
                  </div>
                   
                  
@@ -141,7 +147,7 @@ const Contactus = () => {
 
              <div className='gap-4 flex flex-col'>
                <div className='ml-[10px]'>
-                    <p className='text-[13px] sm:text-[15px] md:text-[16px] lg:text-[17px] font-semibold'>Monday - Friday:  <span className='font-normal'><link rel="stylesheet" href="" />9:00 AM - 6:00 PM (EST)</span> </p>
+                    <p className='text-[13px] sm:text-[15px] md:text-[16px] lg:text-[17px] font-semibold'>Monday - Friday:  <span className='font-normal'><link rel="stylesheet" href="" />9:00 AM - 6:00 PM (IST)</span> </p>
                 </div>
 
                  <div className='ml-[10px]'>
@@ -150,13 +156,7 @@ const Contactus = () => {
              </div>
            </div>
 
-
-
-
-          
-
-
-
+            
 
            <div className='gap-2 flex flex-col   '>
              <div className='flex flex-col gap-5'>
@@ -181,9 +181,7 @@ const Contactus = () => {
 
                  <div className='ml-[10px]'>
                     <p className='text-[13px] sm:text-[15px] md:text-[16px] lg:text-[17px] font-semibold'>Linkedin: <span className='font-normal'><link rel="stylesheet" href="" />Closed</span> </p>
-                 </div>
-
-                 
+                 </div>               
              </div>
            </div>
 

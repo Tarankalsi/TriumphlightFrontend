@@ -50,7 +50,7 @@ export default function MoreInfo({ product }) {
     return (
         <div>
             <ClosableDiv key="description" label="Description">
-                <p className='mx-4 my-2 text-sm tracking-wide'>{product.description || 'No description available'}</p>
+                <p className='mx-4 my-2 mb-5 text-sm tracking-wide'>{product.description || 'No description available'}</p>
             </ClosableDiv>
 
             {Object.keys(productInfoMapping).map((category) => (

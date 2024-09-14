@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { colorsAtom, createProductAtom, createdProductIdAtom } from "../../../store/atoms/adminAtoms";
+import { colorsAtom, createProductAtom, createdProductIdAtom, newWattFieldsAtom } from "../../../store/atoms/adminAtoms";
 import Cookies from 'js-cookie';
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
@@ -12,9 +12,11 @@ const EditProduct = ({product}) => {
   const navigate = useNavigate();
  // Assume route param provides the productId
   const [formData, setFormData] = useRecoilState(createProductAtom);
+  const [newWattFields, setNewWattFields] = useRecoilState(newWattFieldsAtom);
   const [existingProduct, setExistingProduct] = useState(null); // State to store existing product data
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [newColors, setNewColors] = useRecoilState(colorsAtom)
+  
   useEffect(() => {
     setExistingProduct(product)
   }, []);
@@ -26,14 +28,21 @@ const EditProduct = ({product}) => {
 
     setIsSubmitting(true);
 
+     // Combine existing and new watt fields
+     const combinedWattFields = [...formData.watts, ...newWattFields];
+    
+     // Update formData with combined watt fields
+     setFormData(prevData => ({
+       ...prevData,
+       watts: combinedWattFields
+     }));
+
     try {
       // Update product data
-       console.log("Colors : ", newColors)
-      console.log("FormData ; ",formData)  
+ 
       await axios.post(`${apiUrl}/product/update/product/${product.product_id}`, {
         name: formData.name, // Optional
         description: formData.description, // Optional
-        price: formData.price, // Optional
         availability: formData.availability, // Optional
         colors : newColors, // Optional and converted to uppercase if provided
         material: formData.material, // Optional
@@ -69,14 +78,15 @@ const EditProduct = ({product}) => {
         shade_color: formData.shade_color, // Optional
         key_features: formData.key_features, // Optional
         batteries: formData.batteries, // Optional
-        embellishment: formData.embellishment
+        embellishment: formData.embellishment,
+        watts:formData.watts, // Optional
       },{
         headers: {
             "Content-Type": "application/json",
           'Authorization': `Bearer ${Cookies.get('adminToken')}`
         }
       });
-      console.log("Product updated successfully.");
+
       navigate(''); // Redirect after successful update
     } catch (error) {
       console.error("Error updating product:", error.response ? error.response.data : error.message);

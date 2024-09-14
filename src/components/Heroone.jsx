@@ -1,10 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Megaphone, AlignJustify, Search, Heart, ShoppingBag, ChevronRight } from "lucide-react"
-<<<<<<< HEAD
-import { Link,} from "react-router-dom";
-=======
+
 import { Link, BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
->>>>>>> origin/main
+
 import { motion } from "framer-motion"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {  faUser } from '@fortawesome/free-solid-svg-icons';
@@ -64,7 +62,8 @@ function Heroone({ }) {
 
 
   return (
-    <div className=''>
+    <div >
+      
       {openLoginModal && <LoginModal onClose={handleLoginModal}/>}
       {/* Exclusive */}
       <Link >
@@ -83,14 +82,11 @@ function Heroone({ }) {
 
 
       <div>
-<<<<<<< HEAD
-        <div className='navback    sticky '>
-          <div className=' 2xl:justify-center 2xl:flex'>
-          <div className=' min-h-24 2xl:w-[1200px]  px-[10px] py-[5px] sm:px-[25px] sm:py-[5px] md:px-[35px] lg:px-[65px] xl:px-[100px] 2xl:justify-center 2xl:gap-[100px]    flex items-center justify-between'>
-=======
+
+
         <div className='navback sticky'>
           <div className=' min-h-24  px-[10px] py-[5px] sm:px-[25px] sm:py-[5px] md:px-[35px] lg:px-[65px] xl:px-[100px] 2xl:justify-center 2xl:gap-[100px] flex items-center justify-between'>
->>>>>>> origin/main
+
             <div>
             <Link to="/">
             <img className='w-[150px] sm:w-[180px] lg:w-[220px]' src={'https://triumphlights.s3.ap-south-1.amazonaws.com/websiteimages/logo.png'} alt="" />
@@ -99,7 +95,7 @@ function Heroone({ }) {
             </div>
           
             <div className='menu flex-col'>
-              <ul className='flex  gap-[25px]  mr-[0px] text-white font-semibold  tracking-wider'>
+              <ul className='flex  gap-[25px]  mr-[0px] md:gap-12 text-white font-semibold  tracking-wider'>
                 <Link to="/" className=''> <li> Home</li></Link>
                 <Link to="/shop" className=''> <li>Shop</li></Link>
                 <Link to="/contact-us"><li>Contact Us</li></Link>
@@ -234,37 +230,11 @@ function Heroone({ }) {
             </motion.div>
           </div>
 
-
-        }
-
-        {/* <div>
-
-            {
-              status ? <Slide /> : null
-
             }
-
-
-          </div> */}
-
-
-
-
-
-
-
-
-
+        
       </div>
-
-
-
-
-
-
-
-    </div>
-  )
+     
+  );
 }
 
 export default Heroone

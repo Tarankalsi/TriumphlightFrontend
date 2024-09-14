@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link, BrowserRouter, Routes, Route } from "react-router-dom";
 const Herolast = () => {
+
   return (
     <div>
            <div className='footerback flex gap-[5px] justify-between  px-[10px] py-[5px] sm:px-[25px] sm:py-[5px] md:px-[35px] lg:px-[65px] xl:px-[100px] 2xl:justify-center 2xl:gap-[180px] '>
@@ -10,8 +11,8 @@ const Herolast = () => {
                          </div>
 
                          <div className='flex flex-col gap-[5px] lg:py-[12px]'>
-                               <div><p className='text-[9px] sm:text-[12px]  md:text-[14px] lg:text-[16px] text-white'>Find Us On</p></div>
-                               <div className='flex gap-[3px]'>
+                               <div><p className='text-[9px] sm:text-[12px]  md:text-[14px] lg:text-[16px] text-white '>Find Us On</p></div>
+                               <div className='flex gap-4'>
                                       <div>
                                             <img className='w-[22px] sm:w-[26px] md:w-[29px] lg:w-[32px]' src="instalogo.png" alt="" />
                                       </div>
@@ -49,7 +50,7 @@ const Herolast = () => {
 
                   <div className='px-[5px] py-[15px]'>
                          <div className='mt-[5px] '>
-                            <p className='text-[10px] sm:text-[13px] md:text-[15px] lg:text-[17px] text-white'>Usefull Links</p>
+                            <p className='text-[10px] sm:text-[13px] md:text-[15px] lg:text-[17px] text-white'>Useful Links</p>
                          </div>
 
                          <div className='mt-[8px]'>
@@ -67,11 +68,11 @@ const Herolast = () => {
                                  </Link>
                                  
                                  
-                                 <Link to="/Triumph/About-us">
+                                 <Link to="/About-us">
                                   <li className='fade text-[9px] sm:text-[11px]  md:text-[13px] lg:text-[15px] text-white'><a href="http://">About Us</a></li>
                                  </Link>
                                  
-                                 <Link to="/Triumph/Contact-us">
+                                 <Link to="/Contact-us">
                                  <li className='fade text-[9px] sm:text-[11px]  md:text-[13px] lg:text-[15px] text-white'><a href="http://">Contact Us</a></li>
                                  </Link>
                                 
@@ -94,30 +95,30 @@ const Herolast = () => {
                                  </div>
 
                                  <div>
-                                     <p className='text-[8px] sm:text-[13px] md:text-[15px] lg:text-[17px] text-white tracking-wide'>100% Placement Protection,Easy  <br />replacement Policy</p>
+                                     <p className='text-[8px] sm:text-[13px] md:text-[15px] lg:text-[17px] text-white tracking-wide'>100% Secure Payment through <br />verified channels</p>
                                  </div>
 
                                 
                          </div>
 
-                         <div className='flex' >
-                              <div><img className='w-[30px] md:w-[40px]' src="googlepay.png" alt="" /></div>
-                              <div><img className='w-[30px] md:w-[40px]' src="googlepay.png" alt="" /></div>
-                              <div><img className='w-[30px] md:w-[40px]' src="googlepay.png" alt="" /></div>
-                              <div><img className='w-[30px] md:w-[40px] ' src="googlepay.png" alt="" /></div>
-                              <div><img className='w-[30px] md:w-[40px]' src="googlepay.png" alt="" /></div>
+                         <div className='flex justify-evenly' >
+                              <div><img className='w-[30px] md:w-[40px]' src="https://triumphlights.s3.ap-south-1.amazonaws.com/websiteimages/phonepe-icon.png" alt="" /></div>
+                              <div><img className='w-[30px] md:w-[40px]' src="https://triumphlights.s3.ap-south-1.amazonaws.com/websiteimages/bhim-icon.png" alt="" /></div>
+                              <div><img className='w-[30px] md:w-[40px]' src="https://triumphlights.s3.ap-south-1.amazonaws.com/websiteimages/gpay-icon.png" alt="" /></div>
+                              <div className='px-2 bg-white rounded-md
+                              '><img className='w-[30px] md:w-[40px] ' src="https://triumphlights.s3.ap-south-1.amazonaws.com/websiteimages/paytm-icon.png" alt="" /></div>
                          </div>
 
                          
                   </div>
            </div>
 
-           <div className='flex  items-center gap-[3px] exclusive px-[10px] py-[5px] sm:px-[25px] sm:py-[5px] md:px-[35px] lg:px-[65px] xl:px-[100px] 2xl:justify-center 2xl:gap-[100px]'>
+           <div className='flex justify-center items-center gap-[3px] exclusive px-[10px] py-[5px] sm:px-[25px] sm:py-[5px] md:px-[35px] lg:px-[65px] xl:px-[100px] 2xl:justify-center 2xl:gap-[100px] text-center'>
                  <div>
                      <img className='w-[10px]' src="copyright.png" alt="" />
                  </div>
-                 <div>
-                    <p className='tracking-wide text-white text-[9px]'>2024 Triumph Lights ALL Right Reserved.</p>
+                 <div className=''>
+                    <p className='tracking-wide text-white text-[9px] '>2024 Triumph Lights ALL Right Reserved.</p>
                  </div>
            </div>
 

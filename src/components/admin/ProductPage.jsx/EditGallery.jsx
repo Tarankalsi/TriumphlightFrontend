@@ -77,7 +77,7 @@ export default function EditGallery({ product }) {
               'Authorization': `Bearer ${Cookies.get('adminToken')}`,
             },
           });
-          console.log("response of metadata : ", metadata.data);
+
         }
       }));
 

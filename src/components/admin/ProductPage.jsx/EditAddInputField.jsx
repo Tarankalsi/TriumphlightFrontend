@@ -40,12 +40,13 @@ export default function AddInputField({ product }) {
         field.id === id ? { ...field, [name]: value } : field
       )
     );
-    console.log("New Colors ; ", newColors)
+
   };
 
   return (
     <div>
       {/* Display existing colors from the product prop */}
+      <div className='text-center text-sm text-gray-600 mb-2'>existing values are cannot be changed or deleted</div>
       {formData.colors.map((color) => (
         <div className="flex justify-center items-center gap-4" key={color.color_id}>
           <InputData

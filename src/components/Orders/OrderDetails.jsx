@@ -18,7 +18,7 @@ function OrderDetails({ order }) {
                   'Authorization': `Bearer ${Cookies.get('authToken')}`
                 }
             })
-            console.log(response.data)
+
             setUser(response.data.data)
         } catch (error) {
             console.error(error)

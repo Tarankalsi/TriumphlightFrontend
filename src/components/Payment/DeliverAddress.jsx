@@ -30,7 +30,7 @@ export default function DeliverAddress() {
                         'Authorization': `Bearer ${Cookies.get('authToken')}`
                     }
                 });
-                console.log(user.data.data.address);
+
                 setAddresses(user.data.data.address);
                 setUserId(user.data.data.user_id);
             } catch (error) {
@@ -54,11 +54,11 @@ export default function DeliverAddress() {
                     'Authorization': `Bearer ${Cookies.get('authToken')}`
                 }
             });
-            console.log("Deleted Address", response.data);
+
             // Update addresses state after successful deletion
             setAddresses((prev) => prev.filter((address) => address.address_id !== id));
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     };
     
@@ -78,7 +78,7 @@ export default function DeliverAddress() {
                     }
                 });
 
-                console.log("New Address Added", response.data);
+
                 // Add new address to the state
                 setAddresses((prev) => [...prev, response.data]);
                 setIsModalOpen(false);
@@ -90,7 +90,7 @@ export default function DeliverAddress() {
                     postal_code: ''
                 });
             } catch (error) {
-                console.log(error);
+                console.error(error);
             }
         }
     };

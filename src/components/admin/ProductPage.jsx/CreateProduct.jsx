@@ -26,15 +26,14 @@ const CreateProduct = () => {
 
 
     // Validate required fields
-    if (!productData.name || !productData.description || !productData.price || !productData.availability || !productData.SKU || !productData.colors.length) {
+    if (!productData.name || !productData.description  || !productData.availability || !productData.SKU || !productData.colors.length || !productData.watts.length) {
       console.error("Missing required fields");
       setIsSubmitting(false); // Ensure isSubmitting is reset if validation fails
       return;
     }
 
     try {
-      console.log("Category ID:" , category_id);
-      console.log("Product Data:" , productData)
+
       navigate('images', { state: { formData: formData } });
 
     } catch (error) {

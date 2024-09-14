@@ -6,6 +6,7 @@ import Heroone from './Heroone';
 import Herolast from './Herolast';
 import ProductCard from './general/ProductCard';
 import { ClipLoader } from 'react-spinners';
+import Herocounter from './Herocounter';
 
 const apiUrl = import.meta.env.VITE_URL;
 
@@ -163,6 +164,7 @@ const Search = () => {
             </div>
 
             </div>
+            <Herocounter/>
 
             <Herolast />
         </div>

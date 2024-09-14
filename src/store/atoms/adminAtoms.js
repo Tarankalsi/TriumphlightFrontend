@@ -17,7 +17,6 @@ export const createProductAtom = atom({
     default: {
         name: "",
         description: "",
-        price: "",
         category_id:"",
         discount_percent: "",
         availability: "",
@@ -58,8 +57,11 @@ export const createProductAtom = atom({
         batteries: "",
         embellishment: "",
         colors: [],
+        watts:[]
     }
 })
+
+
 
 
 export const createdProductIdAtom = atom({
@@ -80,4 +82,9 @@ export const colorsAtom = atom({
 export const updateCategoryAtom = atom({
     key: "updateCategoryAtom",
     default: ""
+})
+
+export const newWattFieldsAtom = atom({
+    key: "newWattFieldsAtom",
+    default: []
 })

@@ -44,6 +44,8 @@ export default function AddInputField() {
         field.id === id ? { ...field, [name]: value } : field
       )
     }));
+
+    console.log("Form Data :", formData);
   };
 
   return (

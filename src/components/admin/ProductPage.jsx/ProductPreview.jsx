@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faIndianRupee } from "@fortawesome/free-solid-svg-icons";
 
 const apiUrl = import.meta.env.VITE_URL;
 
@@ -12,10 +14,10 @@ const ProdutPreview = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        console.log(productId)
+
         const { data } = await axios.get(`${apiUrl}/product/${productId}`);
         setProduct(data.data);
-        console.log(data)
+
         setLoading(false);
       } catch (error) {
         console.error("Error fetching product:", error);
@@ -71,7 +73,7 @@ const ProdutPreview = () => {
           <p className="text-gray-700 mb-4">{product.description}</p>
           
           {product.price && (
-            <p className="text-lg font-semibold mb-2">Price: ${product.price.toFixed(2)}</p>
+            <p className="text-lg font-semibold mb-2">Price: <FontAwesomeIcon icon={faIndianRupee} className="size-4"/> {product.price.toFixed(2)}</p>
           )}
 
           {product.discount_percent && (

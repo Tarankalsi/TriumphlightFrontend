@@ -8,18 +8,20 @@ import { SyncLoader } from "react-spinners";
 
 const apiUrl = import.meta.env.VITE_URL;
 
-const ProductInfo = ({ product,  isLoggedIn , setShowModal }) => {
+const ProductInfo = ({ product, isLoggedIn, setShowModal }) => {
     const navigate = useNavigate()
     const [selectedColor, setSelectedColor] = useState(null);
+    const [selectedWatt, setSelectedWatt] = useState(product.watts[0]);
     const [quantity, setQuantity] = useState(1);
     const [colorError, setColorError] = useState(false);
+    const [wattError, setWattError] = useState(false)
     const [isInCart, setIsInCart] = useState(false);
     const [buyNowLoader, setBuyNowLoader] = useState(false);
 
-
+    const discount = selectedWatt.price * (product.discount_percent / 100)
 
     useEffect(() => {
-  
+
         const checkProductInCart = async () => {
             try {
                 const cartToken = localStorage.getItem('cartToken');
@@ -29,12 +31,12 @@ const ProductInfo = ({ product,  isLoggedIn , setShowModal }) => {
                             'cart-token': cartToken
                         }
                     });
-                    
-                    
+
+
 
                     const cartItems = response.data.cart.cartItems || [];
                     const productInCart = cartItems.some(item => item.product_id === product.product_id);
-                    
+
                     setIsInCart(productInCart);  // Set the state based on the product check
                 }
             } catch (error) {
@@ -55,24 +57,34 @@ const ProductInfo = ({ product,  isLoggedIn , setShowModal }) => {
                 return;
             }
 
-     
+            if (selectedWatt === null) {
+                setWattError(true);
+                setTimeout(() => {
+                    setWattError(false);
+                }, 2000);
+                return;
+            }
+
+
             const authToken = Cookies.get('authToken');
             const cartToken = localStorage.getItem('cartToken');
 
             if (authToken) {
                 if (!cartToken) {
-                    const newCart = await axios.post(`${apiUrl}/user/create/cart` , {
+                    const newCart = await axios.post(`${apiUrl}/user/create/cart`, {
                         "is_temporary": false,
-                    },{
+                    }, {
                         headers: {
-                            Authorization : `Bearer ${authToken}`
+                            Authorization: `Bearer ${authToken}`
                         }
                     });
                     localStorage.setItem('cartToken', newCart.data.cartToken);
                 }
                 await axios.post(`${apiUrl}/user/addToCart/${product.product_id}`, {
                     quantity: quantity,
-                    color: selectedColor
+                    color: selectedColor,
+                    watt_id:selectedWatt.watt_id,
+
                 },
                     {
                         headers: {
@@ -80,17 +92,18 @@ const ProductInfo = ({ product,  isLoggedIn , setShowModal }) => {
                         }
                     });
                 setIsInCart(true);
-            }else {
+            } else {
 
                 if (!cartToken) {
-                    const newCart = await axios.post(`${apiUrl}/user/create/cart` , {
+                    const newCart = await axios.post(`${apiUrl}/user/create/cart`, {
                         "is_temporary": false,
                     });
                     localStorage.setItem('cartToken', newCart.data.cartToken);
                 }
                 await axios.post(`${apiUrl}/user/addToCart/${product.product_id}`, {
                     quantity: quantity,
-                    color: selectedColor
+                    color: selectedColor,
+                    watt_id: selectedWatt.watt_id,
                 },
                     {
                         headers: {
@@ -99,7 +112,7 @@ const ProductInfo = ({ product,  isLoggedIn , setShowModal }) => {
                     });
                 setIsInCart(true);
             }
-             // Ensure the button updates immediately after adding to cart
+            // Ensure the button updates immediately after adding to cart
         } catch (error) {
             console.error(error);
         }
@@ -111,7 +124,7 @@ const ProductInfo = ({ product,  isLoggedIn , setShowModal }) => {
             setShowModal(true);
             return; // Exit early if the user is not logged in
         }
-    
+
         if (selectedColor === null) {
             setColorError(true);
             setTimeout(() => {
@@ -119,12 +132,20 @@ const ProductInfo = ({ product,  isLoggedIn , setShowModal }) => {
             }, 2000);
             return;
         }
-    
+
+        if (selectedWatt === null) {
+            setWattError(true);
+            setTimeout(() => {
+                setWattError(false);
+            }, 2000);
+            return;
+        }
+
         setBuyNowLoader(true);
-    
+
         const authToken = Cookies.get('authToken');
         let tempCartToken = localStorage.getItem('tempCart');
-    
+
         try {
             if (tempCartToken) {
                 // Delete existing items in the temporary cart
@@ -134,13 +155,14 @@ const ProductInfo = ({ product,  isLoggedIn , setShowModal }) => {
                         'Authorization': `Bearer ${authToken}`,
                     },
                 });
-    
+
                 // Add the product to the existing temporary cart
                 const addProductResponse = await axios.post(
                     `${apiUrl}/user/addToCart/${product.product_id}`,
                     {
                         quantity: quantity,
                         color: selectedColor,
+                        watt_id: selectedWatt.watt_id,
                     },
                     {
                         headers: {
@@ -148,7 +170,7 @@ const ProductInfo = ({ product,  isLoggedIn , setShowModal }) => {
                         },
                     }
                 );
-    
+
                 if (addProductResponse.status === 200) {
                     navigate(`/cart/checkout/${tempCartToken}`);
                 }
@@ -159,7 +181,7 @@ const ProductInfo = ({ product,  isLoggedIn , setShowModal }) => {
                     return; // Exit if user is not authenticated
                 }
 
-    
+
                 const tempCartResponse = await axios.post(
                     `${apiUrl}/user/create/cart`,
                     { "is_temporary": true },
@@ -169,13 +191,13 @@ const ProductInfo = ({ product,  isLoggedIn , setShowModal }) => {
                         },
                     }
                 );
-    
+
                 const tempToken = tempCartResponse.data.cartToken;
                 if (!tempToken) {
                     console.error('Failed to create temporary cart.');
                     return; // Exit if temporary cart creation failed
                 }
-    
+
                 await axios.delete(`${apiUrl}/user/delete/cart/tempCartItems`, {
                     headers: {
                         'cart-token': tempToken,
@@ -186,13 +208,14 @@ const ProductInfo = ({ product,  isLoggedIn , setShowModal }) => {
                 localStorage.setItem('tempCart', tempToken);
 
 
-    
+
                 // Add the product to the newly created temporary cart
                 const addProductResponse = await axios.post(
                     `${apiUrl}/user/addToCart/${product.product_id}`,
                     {
                         quantity: quantity,
                         color: selectedColor,
+                        watt_id: selectedWatt.watt_id,
                     },
                     {
                         headers: {
@@ -200,7 +223,7 @@ const ProductInfo = ({ product,  isLoggedIn , setShowModal }) => {
                         },
                     }
                 );
-    
+
                 if (addProductResponse.status === 200) {
                     navigate(`/cart/checkout/${tempToken}`);
                 }
@@ -211,7 +234,7 @@ const ProductInfo = ({ product,  isLoggedIn , setShowModal }) => {
             setBuyNowLoader(false); // Ensure the loader is stopped in both success and error cases
         }
     };
-    
+
 
     const goToCart = () => {
         // Redirect to the cart page
@@ -224,12 +247,31 @@ const ProductInfo = ({ product,  isLoggedIn , setShowModal }) => {
                 <div className='p-4 flex flex-col gap-4'>
                     <div className='flex flex-col gap-1'>
                         <p className='text-lg font-semibold sm:text-xl lg:text-2xl'>{product.name}</p>
-                        <p className='text-sm sm:text-base'>By {product.brand}</p>
+                        <p className='text-sm sm:text-base text-gray-500'>By {product.brand}</p>
                     </div>
-                    <div>
-                        <p className='text-xl font-semibold sm:text-3xl'>
-                            <FontAwesomeIcon className="size-6" icon={faIndianRupee} />
-                            {product.price}/-</p>
+                    <div className="flex items-center gap-3">
+
+
+
+
+                        {/* Discounted Price */}
+                        <p className='text-xl font-semibold sm:text-3xl text-blue-900'>
+                            <FontAwesomeIcon className='mr-1 size-6' icon={faIndianRupee} />
+                            {parseInt(selectedWatt.price - discount)}
+                        </p>
+                        {/* Original Price with strikethrough */}
+                        <div className="text-md text-red-600 tracking-wider flex items-center line-through">
+                            <span className="font-semibold ">₹</span>
+                            <span>{selectedWatt.price}</span>
+                        </div>
+
+
+                        {/* Optional: Discount Percentage */}
+
+
+                        <p className='text-sm  text-green-600 font-semibold'>
+                            ({product.discount_percent}% OFF)
+                        </p>
                     </div>
                     <div className='flex flex-col gap-2'>
                         <p className='text-sm sm:text-lg font-medium'>Color</p>
@@ -249,6 +291,30 @@ const ProductInfo = ({ product,  isLoggedIn , setShowModal }) => {
                             )}
                         </div>
                     </div>
+
+                    <div className="flex flex-col gap-2">
+                        <p className='text-sm sm:text-lg font-medium'>Watt</p>
+                        <div className="flex gap-3">
+                           {product.watts && product.watts.length > 0 ? (
+                            product.watts.map((item, index) => (
+                                    <div
+                                        key={index}
+                                        className={`cursor-pointer px-4 py-2  font-semibold rounded-lg border  shadow-md hover:shadow-xl hover:scale-105 transition ${selectedWatt === item? 'border-gray-600' : 'border-gray-400'}`}
+                                        onClick={() => setSelectedWatt (item)}
+                                    >
+                                        {item.watt} Watt
+                                    </div>
+                                ))
+                            ) : (
+                                <p className='text-sm text-gray-500'>No watts available</p>
+                            )}
+                        
+                     
+
+                        </div>
+                    </div>
+
+
                     <div>
                         <h2 className="font-kalra text-brown-4 font-semibold mb-2">Quantity</h2>
                         <div className="border border-gray-400 inline-block hover:border-brown-4">
@@ -277,6 +343,7 @@ const ProductInfo = ({ product,  isLoggedIn , setShowModal }) => {
                     </div>
                     {product.availability > 0 ? (
                         <div className='flex flex-col gap-2'>
+                            {wattError && <span className="text-red-700 text-center text-sm tracking-wider">Please select a watt</span>}
                             {colorError && <span className="text-red-700 text-center text-sm tracking-wider">Please select a color</span>}
                             {isInCart ? (
                                 <button onClick={goToCart} className='rounded-lg bg-blue-600 hover:bg-blue-700 text-white h-8 sm:h-10 text-sm'>
@@ -288,9 +355,9 @@ const ProductInfo = ({ product,  isLoggedIn , setShowModal }) => {
                                 </button>
                             )}
                             <button onClick={onBuyNowClick} className='rounded-lg bg-gray-500 hover:bg-gray-800 text-white h-8 sm:h-10 text-sm'>
-                                {buyNowLoader ? <SyncLoader size={8} color='#ffffff' /> :"Buy Now"}
+                                {buyNowLoader ? <SyncLoader size={8} color='#ffffff' /> : "Buy Now"}
                             </button>
-                            
+
                         </div>
                     ) : (
                         <div>
