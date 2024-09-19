@@ -94,6 +94,7 @@ export default function Form({ onSubmit, buttonLabel, isSubmitting }) {
                         name="discount_percent"
                         value={formData.discount_percent}
                         onChange={handleChange}
+                        required={true}
                     />
 
                     <InputDropdown

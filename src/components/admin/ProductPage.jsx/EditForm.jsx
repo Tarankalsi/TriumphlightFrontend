@@ -19,9 +19,9 @@ export default function EditForm({ onSubmit, buttonLabel, isSubmitting, initialD
 
   useEffect(() => {
     // Initialize formData with initialData on mount
-    setFormData({...initialData});
+    setFormData({ ...initialData });
   }, [initialData, setFormData]);
-  
+
   const handleChange = (e) => {
     const { name, value, type } = e.target;
 
@@ -32,7 +32,7 @@ export default function EditForm({ onSubmit, buttonLabel, isSubmitting, initialD
     } else {
       convertedValue = value;
     }
-    
+
     setFormData({
       ...formData,
       [name]: convertedValue,
@@ -78,8 +78,8 @@ export default function EditForm({ onSubmit, buttonLabel, isSubmitting, initialD
             onChange={handleChange}
             required={true}
           />
-        
-      
+
+
           <InputData
             type="number"
             label="Availability"
@@ -94,6 +94,7 @@ export default function EditForm({ onSubmit, buttonLabel, isSubmitting, initialD
             name="discount_percent"
             value={formData.discount_percent}
             onChange={handleChange}
+            required={true}
           />
           <InputDropdown
             label="Category"
@@ -106,7 +107,7 @@ export default function EditForm({ onSubmit, buttonLabel, isSubmitting, initialD
 
         <h3 className="text-center text-xl font-semibold my-3 mt-10 underline">Description</h3>
         <div className='grid grid-cols-1 gap-6'>
-        <InputTextField
+          <InputTextField
             type="text"
             label="Description"
             name="description"
@@ -116,18 +117,18 @@ export default function EditForm({ onSubmit, buttonLabel, isSubmitting, initialD
             required={true}
           />
         </div>
-       
+
 
         {/* Color Variants */}
         <h3 className="text-center text-xl font-semibold my-3 mt-10 underline">Add Color Variants</h3>
         <div className="grid grid-cols-1 gap-6">
-          <EditAddInputField  />
+          <EditAddInputField />
         </div>
 
         <h3 className="text-center text-xl font-semibold my-3 mt-10 underline">Add Watt Variants</h3>
-        
+
         <div className="grid grid-cols-1 gap-6">
-          <EditAddWattInputField  />
+          <EditAddWattInputField />
         </div>
 
         {/* Product Details */}
@@ -160,10 +161,11 @@ export default function EditForm({ onSubmit, buttonLabel, isSubmitting, initialD
               value={formData[field]}
               onChange={handleChange}
               key={field}
+              required={true}
             />
           ))}
         </div>
-          
+
         {/* Extra Details */}
         <h3 className="text-center text-xl font-semibold my-3 underline mt-10">More Extra Details</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

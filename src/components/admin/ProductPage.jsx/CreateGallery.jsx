@@ -44,36 +44,31 @@ export default function CreateGallery() {
     URL.revokeObjectURL(imageToRemove.preview); // Clean up object URL
     setImages(prevImages => prevImages.filter((_, i) => i !== index));
   };
+  
 
   const handleUpload = async () => {
     setIsLoading(true); // Start loading
-
-
-
+  
     try {
+      // Send product data and get the product_id
       const response = await axios.post(`${apiUrl}/product/create/product/${category_id}`, productData, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${Cookies.get('adminToken')}`
-        }
+          'Authorization': `Bearer ${Cookies.get('adminToken')}`,
+        },
       });
-
-      await Promise.all(images.map(async (image) => {
-        const { data } = await axios.post(`${apiUrl}/product/create/gallery/presigned/${response.data.product.product_id}`, {
-          imageName: image.file.name,
-          contentType: image.file.type,
-        }, {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${Cookies.get('adminToken')}`,
-          },
-        });
-
-
-        const uploadImage = await uploadImageInS3(image.file, data.url);
-        if (uploadImage.status === 200) {
-          const metadata = await axios.post(`${apiUrl}/product/create/gallery/${response.data.product.product_id}`, {
-            key: data.key,
+  
+      const product_id = response.data.product.product_id;
+  
+      // Upload images sequentially
+      for (let i = 0; i < images.length; i++) {
+        const image = images[i];
+  
+        try {
+          // Request pre-signed URL
+          const { data } = await axios.post(`${apiUrl}/product/create/gallery/presigned/${product_id}`, {
+            imageName: image.file.name,
+            contentType: image.file.type,
           }, {
             headers: {
               'Content-Type': 'application/json',
@@ -81,18 +76,40 @@ export default function CreateGallery() {
             },
           });
   
+          // Upload the image to S3 using the pre-signed URL
+          const uploadImage = await uploadImageInS3(image.file, data.url);
+  
+          if (uploadImage.status === 200) {
+            // If image is successfully uploaded, store metadata in the backend
+            await axios.post(`${apiUrl}/product/create/gallery/${product_id}`, {
+              key: data.key,
+            }, {
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${Cookies.get('adminToken')}`,
+              },
+            });
+          } else {
+            console.error(`Image upload failed for ${image.file.name}`);
+            alert(`Failed to upload image: ${image.file.name}`);
+          }
+        } catch (error) {
+          console.error(`Error uploading image: ${image.file.name}`, error);
+          alert(`Error uploading image: ${image.file.name}. Skipping this image.`);
         }
-      }));
-
+      }
+  
+      // All images uploaded successfully
       alert('Images uploaded successfully!');
-      navigate('../products');
+      navigate('./products');
     } catch (error) {
-      console.error('Error uploading images:', error);
-      alert('Failed to upload images. Please try again.');
+      console.error('Error creating product or uploading images:', error);
+      alert('Failed to upload product or images. Please try again.');
     } finally {
       setIsLoading(false); // Stop loading
     }
   };
+  
 
   return (
     <div>
